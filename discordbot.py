@@ -19,13 +19,16 @@ async def on_ready():
 @client.event
 async def on_message(message):
     global list_entry
+    global flag
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
         return
-    elif message.content == '抽選パスタ':
-    	msg = "こんパス！抽選パスタです！\n 抽選に参加する方は、以下のコマンドを指定のチャンネルに書き込んでください！\n \n entry：抽選に参加 \n exit：抽選を辞退 \n list：エントリー者リストの確認 \n chusen(うめださん専用)：抽選開始 \n reset(うめださん専用)：エントリー者リストをクリア \n \n 二回以上「entry」しても重複しないのでご安心ください。\n 念のため、定期的に「list」でログを残してくださると助かります。"
+    elif(message.content == '抽選パスタ' and message.author.name == "うめだJAPAN"):
+    	list_entry.clear()
+    	flag = 1
+    	msg = "こんパス！新たに抽選を開始するゾ。\n 以下のコマンドをこのチャンネルに書き込むのじゃ！\n \n entry：抽選に参加 \n exit：抽選を辞退 \n list：エントリー者リストの確認 \n chusen(うめださん専用)：抽選開始 \n 〆切(うめださん専用)：エントリーを〆切\n \n :warning: :warning: :warning: \n 動画内で抽選を行いますが、当選された時点でライブチャットに返信がなければ無効となり、再抽選となるのでご注意ください！！！\n :warning: :warning: :warning: "
     # 「entry」と書き込んだらその人をエントリーのリストに追加
-    elif message.content == 'entry':
+    elif message.content == 'entry' and flag == 1:
     	list_entry.append(str(message.author.name))
     	msg = message.author.name + " さんが抽選に参加しました！（現在 " + str(len(list(set(list_entry)))) + " 人）"
     # 「exit」と書き込んだらその人をエントリーのリストから削除
@@ -34,7 +37,7 @@ async def on_message(message):
     		list_entry.remove(str(message.author.name))
     	msg = message.author.name + " さんが抽選を辞退しました！（現在 " + str(len(list(set(list_entry)))) + " 人）"
     # 「list」と書き込んだらエントリー者のリストを出力
-    elif message.content == 'list':
+    elif message.content == 'list' :
         msg = "エントリー者（現在 " + str(len(list(set(list_entry)))) + " 人）：" + str(list(set(list_entry)))
     # うめださんが「chusen」と書き込んだらリストからランダムで取得
     elif(message.content == 'chusen' and message.author.name == "うめだJAPAN"):
@@ -42,14 +45,18 @@ async def on_message(message):
             msg = "エントリー者がいません！"
     	else:
             choice = random.choice(list(set(list_entry)))
-            msg = choice + " さん、当選おめパスタ！"
+            list_entry.remove(choice)
+            msg = choice + " さん、当選おめパスタ！（残り " + str(len(list(set(list_entry)))) + " 人）"
     # うめださんが「reset」と書き込んだらリストを初期化
-    elif(message.content == 'reset' and message.author.name == "うめだJAPAN"):
-    	list_entry.clear()
-    	msg = "全員のエントリーがリセットされました！"
+    elif(message.content == '〆切' and message.author.name == "うめだJAPAN"):
+    	flag = 0
+    	msg = "エントリーが〆切になりました！"
     else: return
 
     await message.channel.send(msg)
+
+    if len(list(set(list_entry))) % 5 == 0:
+    	await message.channel.send("定期リスト確認（現在 " + str(len(list(set(list_entry)))) + " 人）：" + str(list(set(list_entry))) + "\n まだまだエントリー受付中！")
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
