@@ -1,10 +1,9 @@
 # インストールした discord.py を読み込む
 import discord
 import random
-import asyncio
 
 # 自分のBotのアクセストークン
-TOKEN = 'NjE3MTk5NTk0MzMzNTM2Mjcx.XWtmKw.mc4mpbIBJ0RlGQw9v1VbIVsEi1I'
+TOKEN = 'NjE3MTk5NTk0MzMzNTM2Mjcx.XWtoNQ.PUIZRTSFiu09mpUYxfy84R5bnzg'
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
@@ -53,4 +52,4 @@ async def on_message(message):
     await message.channel.send(msg)
 
 # Botの起動とDiscordサーバーへの接続
-client.run(TOKEN)
+bot.run(TOKEN)
