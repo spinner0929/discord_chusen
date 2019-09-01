@@ -3,7 +3,7 @@ import discord
 import random
 
 # 自分のBotのアクセストークン
-TOKEN = 'NjE3MTk5NTk0MzMzNTM2Mjcx.XWtoNQ.PUIZRTSFiu09mpUYxfy84R5bnzg'
+TOKEN = 'NjE3MTk5NTk0MzMzNTM2Mjcx.XWtrRA.RKw0mzO1mR98TLKdi9oNwGkvLlc'
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
@@ -52,4 +52,4 @@ async def on_message(message):
     await message.channel.send(msg)
 
 # Botの起動とDiscordサーバーへの接続
-bot.run(TOKEN)
+client.run(TOKEN)
