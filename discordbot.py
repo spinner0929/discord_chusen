@@ -4,7 +4,7 @@ import random
 import asyncio
 
 # 自分のBotのアクセストークン
-TOKEN = 'NjE3MTk5NTk0MzMzNTM2Mjcx.XWqf0A.80XEQ98VTDVfeW3sKedCHObyzJc'
+TOKEN = 'NjE3MTk5NTk0MzMzNTM2Mjcx.XWtlQQ.C8FrERl1wfIgS0E0CueKGBmkhqY'
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
