@@ -47,10 +47,7 @@ async def on_message(message):
             choice = random.choice(list(set(list_entry)))
             list_entry.remove(choice)
             msg = choice + ' さんが当選されました！（残り ' + str(len(list(set(list_entry)))) + ' 人）\n \n :warning: ただし、生放送チャットで返事がなければ無効になります！'
-    # うめださんが「reset」と書き込んだらリストを初期化
-    elif(message.content == '〆切' and message.author.name == 'うめだJAPAN'):
-    	flag = 0
-    	msg = 'エントリーが〆切になりました！'
+            flag = 0
     else: return
 
     await message.channel.send(msg)
