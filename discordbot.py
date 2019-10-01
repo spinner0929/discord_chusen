@@ -24,10 +24,10 @@ async def on_message(message):
     # メッセージ送信者が Bot だった場合は無視する
     if message.author.bot:
         return
-    elif(message.content == '抽選パスタ' and message.author.name == 'うめだJAPAN'):
+    elif(message.content == '抽選パスタ' and message.author.guild_permissions.administrator):
     	list_entry = []
     	flag = 1
-    	msg = 'こんパス！新たに抽選を開始します！\n 以下のコマンドをこのチャンネルに書き込んでね！\n \n entry：抽選に参加 \n exit：抽選を辞退 \n list：エントリー者リストの確認 \n chusen(うめだ氏専用)：抽選開始 \n \n :warning: 必読 :warning: \n 動画内で抽選を行いますが、当選された時点でライブチャットに返信がなければ当選が無効となります。\n また、抽選パスタを呼び出せるのは午後８時～翌朝６時です。\n 追加機能や変更の要望、不具合の報告等はフクナガまで。'
+    	msg = 'こんパス！新たに抽選を開始します！\n 以下のコマンドをこのチャンネルに書き込んでね！\n \n entry：抽選に参加 \n exit：抽選を辞退 \n list：参加者リストの確認 \n chusen(管理者専用)：抽選開始 \n \n :warning: 必読 :warning: \n 動画内で抽選を行いますが、当選された時点でライブチャットに返信がなければ当選が無効となります。\n また、このBOTを呼び出せるのは午後８時～翌朝６時です。\n 追加機能や変更の要望、不具合の報告等はフクナガまで。'
     # 「entry」と書き込んだらその人をエントリーのリストに追加
     elif message.content == 'entry' and flag == 1:
     	list_entry.append(str(message.author.name))
@@ -39,20 +39,20 @@ async def on_message(message):
     	msg = message.author.name + ' さんが抽選を辞退しました！（現在 ' + str(len(list(set(list_entry)))) + ' 人）'
     # 「list」と書き込んだらエントリー者のリストを出力
     elif message.content == 'list' and flag == 1:
-        msg = 'エントリー者一覧（現在 ' + str(len(list(set(list_entry)))) + ' 人）：' + str(list(set(list_entry)))
+        msg = '参加者一覧（現在 ' + str(len(list(set(list_entry)))) + ' 人）：' + str(list(set(list_entry)))
     # うめださんが「chusen」と書き込んだらリストからランダムで取得
-    elif message.content == 'chusen' and message.author.name == 'うめだJAPAN':
+    elif message.content == 'chusen' and message.author.guild_permissions.administrator:
     	if len(list_entry) == 0:
-            msg = 'エントリー者がいません！'
+            msg = '参加者がいません！'
     	else:
             choice = random.choice(list(set(list_entry)))
             list_entry.remove(choice)
             msg = choice + ' さんが当選されました！（残り ' + str(len(list(set(list_entry)))) + ' 人）\n \n :warning: ただし、生放送チャットで返事がなければ無効になります！'
             flag = 0
 
-    elif message.content == 'ダービーパスタ' and message.author.name == 'うめだJAPAN':
+    elif message.content == 'ダービーパスタ' and message.author.guild_permissions.administrator:
     	list_derby = {}
-    	msg = 'こんパス！新たにダービーを開始します！\n 予想を先着順に連続数字(12345など)で書き込んでね！\n \n コマンド一覧\n exit : 予想を辞退\n check : 自分の予想を確認\n list : 参加者と予想の一覧を表示\n 〆切(うめだ氏専用) : ダービーの参加を〆切\n 連番数字(うめだ氏専用) : 予想的中者の発表\n \n :warning: 必読 :warning: \n 2回以上書き込んだ場合、最後に書き込んだ予想があなたの予想になります。\n 当選時にライブチャットに返信がなければ当選無効となります。'
+    	msg = 'こんパス！新たにダービーを開始します！\n 予想を先着順に数字(12345など)で書き込んでね！\n \n コマンド一覧\n exit : 予想を辞退\n check : 自分の予想を確認\n list : 参加者と予想の一覧を表示\n 〆切(管理者専用) : ダービーの参加を〆切\n ダービー結果の数字(管理者専用) : ダービー結果の発表\n \n :warning: 必読 :warning: \n 2回以上書き込んだ場合、最後に書き込んだ予想があなたの予想になります。\n 当選時にライブチャットに返信がなければ当選無効となります。\n 追加機能や仕様変更、バグ報告等はフクナガまで。'
     	flag = 2
     # 予想順位を書き込むと辞書型に名前と予想順位が追加される
     elif str(message.content).isdecimal() and flag == 2:
@@ -69,11 +69,11 @@ async def on_message(message):
     elif message.content == 'list' and flag == 2:
         msg = '参加者一覧（現在 ' + str(len(list_derby)) + ' 人）：\n' + str(list_derby)
     # 「〆切」と書き込むと参加を〆切
-    elif message.content == '〆切' and message.author.name == 'うめだJAPAN':
+    elif message.content == '〆切' and message.author.guild_permissions.administrator:
         msg = '参加が〆切になりました！'
         flag = 0
     # うめださんが結果順位を書き込むと、全的中者と３連単的中者を表示
-    elif str(message.content).isdecimal() and message.author.name == 'うめだJAPAN' and flag == 0:
+    elif str(message.content).isdecimal() and message.author.guild_permissions.administrator and flag == 0:
     	if len(list_derby) == 0:
             msg = '参加者がいません！'
     	else:
