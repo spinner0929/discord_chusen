@@ -27,7 +27,7 @@ async def on_message(message):
     elif(message.content == '抽選パスタ' and message.author.name == 'うめだJAPAN'):
     	list_entry = []
     	flag = 1
-    	msg = 'こんパス！新たに抽選を開始します！\n 以下のコマンドをこのチャンネルに書き込んでね！\n \n entry：抽選に参加 \n exit：抽選を辞退 \n list：エントリー者リストの確認 \n chusen(うめだ氏専用)：抽選開始 \n :warning: 必読 :warning: \n 動画内で抽選を行いますが、当選された時点でライブチャットに返信がなければ当選が無効となります。\n また、抽選パスタを呼び出せるのは午後８時～翌朝６時です。\n 追加機能や変更の要望、不具合の報告等はフクナガまで。'
+    	msg = 'こんパス！新たに抽選を開始します！\n 以下のコマンドをこのチャンネルに書き込んでね！\n \n entry：抽選に参加 \n exit：抽選を辞退 \n list：エントリー者リストの確認 \n chusen(うめだ氏専用)：抽選開始 \n \n :warning: 必読 :warning: \n 動画内で抽選を行いますが、当選された時点でライブチャットに返信がなければ当選が無効となります。\n また、抽選パスタを呼び出せるのは午後８時～翌朝６時です。\n 追加機能や変更の要望、不具合の報告等はフクナガまで。'
     # 「entry」と書き込んだらその人をエントリーのリストに追加
     elif message.content == 'entry' and flag == 1:
     	list_entry.append(str(message.author.name))
