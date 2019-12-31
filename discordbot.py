@@ -77,7 +77,7 @@ async def on_message(message):
     	if len(list_derby) == 0:
             msg = '参加者がいません！'
     	else:
-            msg = '全的中：\n' + str([k for k, v in list_derby.items() if str(v) == str(message.content)]) + '\n \n 3連単：\n' + str([k for k, v in list_derby.items() if(str(v).startswith(str(message.content)[:3]) and str(v) != str(message.content))]) + '\n \n :warning: ただし、生放送のチャットで返信がなければ無効になります！\n \n :red_circle: 新たにダービーを開始する場合は、「ダービーパスタ」と書き込んでリセットしてください！'
+            msg = '全的中：\n' + str([k for k, v in list_derby.items() if str(v) == str(message.content)]) + '\n \n 3連単：\n' + str([k for k, v in list_derby.items() if(str(v).startswith(str(message.content)[:3]) and str(v) != str(message.content))]) + '\n \n :warning: ただし、生放送のチャットで返信がなければ無効になります！\n \n :red_circle: 新たにダービーを開始する場合、「ダービーパスタ」と書き込んでリセットしてください'
     else: return
 
     await message.channel.send(msg)
