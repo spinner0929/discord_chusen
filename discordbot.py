@@ -57,17 +57,17 @@ async def on_message(message):
     # 予想順位を書き込むと辞書型に名前と予想順位が追加される
     elif str(message.content).isdecimal() and flag == 2:
     	list_derby[message.author.name] = str(message.content)
-    	msg = message.author.name + 'さんの予想 : ' + message.content + '（参加者 ' + str(len(list_derby)) + ' 人）'
+    	msg = message.author.name + 'さんの予想 : ' + message.content + '(参加者 ' + str(len(list_derby)) + ' 人)'
     # 「exit」と書き込んだらその人を辞書型から削除
     elif message.content == 'exit' and flag == 2:
     	list_derby.pop(str(message.author.name), None)
-    	msg = message.author.name + ' さんが予想を辞退しました！（参加者 ' + str(len(list_derby)) + ' 人）'
+    	msg = message.author.name + ' さんが予想を辞退しました！(参加者 ' + str(len(list_derby)) + ' 人)'
     # 「check」と書き込むとその人の予想した順位を表示
     elif message.content == 'check' and  flag == 2:
-        msg = message.author.name + ' さんの予想は ' + str(list_derby.get(message.author.name)) + ' です！（参加者 ' + str(len(list_derby)) + ' 人）'
+        msg = message.author.name + ' さんの予想は ' + str(list_derby.get(message.author.name)) + ' です！(参加者 ' + str(len(list_derby)) + ' 人)'
     # 「list」と書き込むと参加者と予想を表示
     elif message.content == 'list' and flag == 2:
-        msg = '参加者一覧（現在 ' + str(len(list_derby)) + ' 人）：\n' + str(list_derby)
+        msg = '参加者一覧(現在 ' + str(len(list_derby)) + ' 人)：\n' + str(list_derby)
     # 「〆切」と書き込むと参加を〆切
     elif message.content == '〆切' and message.author.guild_permissions.administrator:
         msg = '参加が〆切になりました！'
