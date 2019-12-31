@@ -31,15 +31,15 @@ async def on_message(message):
     # 「entry」と書き込んだらその人をエントリーのリストに追加
     elif message.content == 'entry' and flag == 1:
     	list_entry.append(str(message.author.name))
-    	msg = message.author.name + ' さんが抽選に参加しました！（現在 ' + str(len(list(set(list_entry)))) + ' 人）'
+    	msg = message.author.name + ' さんが参加しました！(現在 ' + str(len(list(set(list_entry)))) + ' 人)'
     # 「exit」と書き込んだらその人をエントリーのリストから削除
     elif message.content == 'exit' and flag == 1:
     	while message.author.name in list_entry:
     		list_entry.remove(str(message.author.name))
-    	msg = message.author.name + ' さんが抽選を辞退しました！（現在 ' + str(len(list(set(list_entry)))) + ' 人）'
+    	msg = message.author.name + ' さんが辞退しました！(現在 ' + str(len(list(set(list_entry)))) + ' 人)'
     # 「list」と書き込んだらエントリー者のリストを出力
     elif message.content == 'list' and flag == 1:
-        msg = '参加者一覧（現在 ' + str(len(list(set(list_entry)))) + ' 人）：' + str(list(set(list_entry)))
+        msg = '参加者一覧(現在 ' + str(len(list(set(list_entry)))) + ' 人)：' + str(list(set(list_entry)))
     # うめださんが「chusen」と書き込んだらリストからランダムで取得
     elif message.content == 'chusen' and message.author.guild_permissions.administrator:
     	if len(list_entry) == 0:
@@ -47,7 +47,7 @@ async def on_message(message):
     	else:
             choice = random.choice(list(set(list_entry)))
             list_entry.remove(choice)
-            msg = choice + ' さんが当選されました！（残り ' + str(len(list(set(list_entry)))) + ' 人）\n \n :warning: ただし、生放送のチャットで返信がなければ無効になります！'
+            msg = choice + ' さんが当選しました！(残り ' + str(len(list(set(list_entry)))) + ' 人)\n \n :warning: ただし、生放送のチャットで返信がなければ無効になります！'
             flag = 0
 
     elif message.content == 'ダービーパスタ' and message.author.guild_permissions.administrator:
@@ -77,7 +77,7 @@ async def on_message(message):
     	if len(list_derby) == 0:
             msg = '参加者がいません！'
     	else:
-            msg = '全的中：\n' + str([k for k, v in list_derby.items() if str(v) == str(message.content)]) + '\n \n 3連単：\n' + str([k for k, v in list_derby.items() if(str(v).startswith(str(message.content)[:3]) and str(v) != str(message.content))]) + '\n \n ただし、生放送のチャットで返信がなければ無効になります！\n :red_circle: 新たにダービーを開始する場合は、「ダービーパスタ」と書き込んでリセットしてください！'
+            msg = '全的中：\n' + str([k for k, v in list_derby.items() if str(v) == str(message.content)]) + '\n \n 3連単：\n' + str([k for k, v in list_derby.items() if(str(v).startswith(str(message.content)[:3]) and str(v) != str(message.content))]) + '\n \n :warning: ただし、生放送のチャットで返信がなければ無効になります！\n \n :red_circle: 新たにダービーを開始する場合は、「ダービーパスタ」と書き込んでリセットしてください！'
     else: return
 
     await message.channel.send(msg)
