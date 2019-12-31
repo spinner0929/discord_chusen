@@ -27,7 +27,7 @@ async def on_message(message):
     elif(message.content == '抽選パスタ' and message.author.guild_permissions.administrator):
     	list_entry = []
     	flag = 1
-    	msg = 'こんパス！新たに抽選を開始します！\n entry と書き込んで抽選に参加してね！\n \n entry：抽選に参加 \n exit：抽選を辞退 \n list：参加者リストの確認 \n chusen：抽選開始(管理者専用) \n \n :warning: 必読 :warning: \n 当選者はすぐにチャットで返信してください。返信が無ければ無効となります。\n BOTの呼び出しは午後８時～翌朝６時です。\n 追加機能や仕様変更、報告等はフクナガまで。'
+    	msg = 'こんパス！新たに抽選を開始します！\n entry と書き込んで抽選に参加してね！\n \n entry：抽選に参加 \n exit：抽選を辞退 \n list：参加者リストの確認 \n chusen：抽選開始(管理者専用) \n \n :warning: 必読 :warning: \n 当選者はすぐにチャットで返信してください。\n 返信がない場合、当選は無効となります。\n BOTの呼び出しは午後８時～翌朝６時です。\n 追加機能や仕様変更、報告等はフクナガまで。'
     # 「entry」と書き込んだらその人をエントリーのリストに追加
     elif message.content == 'entry' and flag == 1:
     	list_entry.append(str(message.author.name))
