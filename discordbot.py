@@ -27,7 +27,7 @@ async def on_message(message):
     elif(message.content == '抽選パスタ' and message.author.guild_permissions.administrator):
     	list_entry = []
     	flag = 1
-    	msg = 'こんパス！新たに抽選を開始します！\n entry と書き込んで抽選に参加してね！\n \n :small_blue_diamond: コマンド一覧\n entry：抽選に参加 \n exit：抽選を辞退 \n list：参加者リストの確認 \n chusen：抽選開始(管理者専用) \n \n :warning: 必読 :warning: \n 当選者はすぐにチャットで返信してください。\n 返信がない場合、当選は無効となります。\n BOTの呼び出しは午後８時～翌朝６時です。\n 追加機能や仕様変更、報告等はフクナガまで。'
+    	msg = 'こんパス！新たに抽選を開始します！\n entry と書き込んで抽選に参加してね！\n \n :small_blue_diamond: コマンド一覧\n entry：抽選に参加 \n exit：抽選を辞退 \n list：参加者リストの確認 \n chusen：抽選開始(管理者専用) \n \n :warning: 必読 :warning: \n 当選者はすぐに生放送のチャットで返信してください。返信がない場合は無効となります。\n BOTの呼び出しは午後８時～翌朝６時です。\n 追加機能や仕様変更、報告等はフクナガまで。'
     # 「entry」と書き込んだらその人をエントリーのリストに追加
     elif message.content == 'entry' and flag == 1:
     	list_entry.append(str(message.author.name))
@@ -47,7 +47,7 @@ async def on_message(message):
     	else:
             choice = random.choice(list(set(list_entry)))
             list_entry.remove(choice)
-            msg = choice + ' さんが当選されました！（残り ' + str(len(list(set(list_entry)))) + ' 人）\n \n :warning: ただし、生放送チャットで返事がなければ無効になります！'
+            msg = choice + ' さんが当選されました！（残り ' + str(len(list(set(list_entry)))) + ' 人）\n \n :warning: ただし、生放送のチャットで返信がなければ無効になります！'
             flag = 0
 
     elif message.content == 'ダービーパスタ' and message.author.guild_permissions.administrator:
@@ -77,7 +77,7 @@ async def on_message(message):
     	if len(list_derby) == 0:
             msg = '参加者がいません！'
     	else:
-            msg = '全的中：\n' + str([k for k, v in list_derby.items() if str(v) == str(message.content)]) + '\n \n 3連単：\n' + str([k for k, v in list_derby.items() if(str(v).startswith(str(message.content)[:3]) and str(v) != str(message.content))]) + '\n \n :warning: ただし、生放送チャットで返事がなければ無効になります！'
+            msg = '全的中：\n' + str([k for k, v in list_derby.items() if str(v) == str(message.content)]) + '\n \n 3連単：\n' + str([k for k, v in list_derby.items() if(str(v).startswith(str(message.content)[:3]) and str(v) != str(message.content))]) + '\n \n ただし、生放送のチャットで返信がなければ無効になります！\n :red_circle: 新たにダービーを開始する場合は、「ダービーパスタ」と書き込んでリセットしてください！'
     else: return
 
     await message.channel.send(msg)
