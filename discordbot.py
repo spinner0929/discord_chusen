@@ -3,7 +3,7 @@ import discord
 import random
 
 # 自分のBotのアクセストークン
-TOKEN = 'NjE3NzczMjU3Mjk0MjE3MzI5.'+'XWwAdw.xcRsuBG_b8ZjQ8Rda3Wqdu2SSCA'
+TOKEN = 'NjE3MTk5NTk0MzMzNTM2Mjcx.'+'XgtdhQ.YEYrbubhZ_Q1tmMnVyDMHTiL9E4'
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
@@ -27,7 +27,7 @@ async def on_message(message):
     elif(message.content == '抽選パスタ' and message.author.guild_permissions.administrator):
     	list_entry = []
     	flag = 1
-    	msg = 'こんパス！新たに抽選を開始します！\n 以下のコマンドをこのチャンネルに書き込んでね！\n \n entry：抽選に参加 \n exit：抽選を辞退 \n list：参加者リストの確認 \n chusen(管理者専用)：抽選開始 \n \n :warning: 必読 :warning: \n 動画内で抽選を行いますが、当選された時点でライブチャットに返信がなければ当選が無効となります。\n また、このBOTを呼び出せるのは午後８時～翌朝６時です。\n 追加機能や変更の要望、不具合の報告等はフクナガまで。'
+    	msg = 'こんパス！新たに抽選を開始します！\n 以下のコマンドをこのチャンネルに書き込んでね！\n \n entry：抽選に参加 \n exit：抽選を辞退 \n list：参加者リストの確認 \n chusen：抽選開始(管理者専用) \n \n :warning: 必読 :warning: \n 動画内で抽選を行いますが、当選された時点でライブチャットに返信がなければ当選が無効となります。\n また、このBOTを呼び出せるのは午後８時～翌朝６時です。\n 追加機能や変更の要望、不具合の報告等はフクナガまで。'
     # 「entry」と書き込んだらその人をエントリーのリストに追加
     elif message.content == 'entry' and flag == 1:
     	list_entry.append(str(message.author.name))
@@ -52,7 +52,7 @@ async def on_message(message):
 
     elif message.content == 'ダービーパスタ' and message.author.guild_permissions.administrator:
     	list_derby = {}
-    	msg = 'こんパス！新たにダービーを開始します！\n 予想を先着順に数字(12345など)で書き込んでね！\n \n コマンド一覧\n exit : 予想を辞退\n check : 自分の予想を確認\n list : 参加者と予想の一覧を表示\n 〆切(管理者専用) : ダービーの参加を〆切\n ダービー結果の数字(管理者専用) : ダービー結果の発表\n \n :warning: 必読 :warning: \n 2回以上書き込んだ場合、最後に書き込んだ予想があなたの予想になります。\n 当選時にライブチャットに返信がなければ当選無効となります。\n 追加機能や仕様変更、バグ報告等はフクナガまで。'
+    	msg = 'こんパス！新たにダービーを開始します！\n 予想を先着順に数字(12345など)で書き込んでね！\n \n コマンド一覧\n exit : 予想を辞退\n check : 自分の予想を確認\n list : 参加者と予想の一覧を表示\n 〆切 : ダービーの参加を〆切(管理者専用)\n xxxxx(結果の数字) : ダービー結果の発表(管理者専用)\n \n :warning: 必読 :warning: \n 2回以上書き込んだ場合、最後に書き込んだ予想があなたの予想になります。\n 当選時にライブチャットに返信がなければ当選無効となります。\n 追加機能や仕様変更、バグ報告等はフクナガまで。'
     	flag = 2
     # 予想順位を書き込むと辞書型に名前と予想順位が追加される
     elif str(message.content).isdecimal() and flag == 2:
@@ -77,7 +77,7 @@ async def on_message(message):
     	if len(list_derby) == 0:
             msg = '参加者がいません！'
     	else:
-            msg = '全的中：\n' + str([k for k, v in list_derby.items() if str(v) == str(message.content)]) + '\n \n 3連単：\n' + str([k for k, v in list_derby.items() if str(v).startswith(str(message.content)[:3])]) + '\n \n :warning: ただし、生放送チャットで返事がなければ無効になります！'
+            msg = '全的中：\n' + str([k for k, v in list_derby.items() if str(v) == str(message.content)]) + '\n \n 3連単：\n' + str([k for k, v in list_derby.items() if(str(v).startswith(str(message.content)[:3]) and str(v) != str(message.content))]) + '\n \n :warning: ただし、生放送チャットで返事がなければ無効になります！'
     else: return
 
     await message.channel.send(msg)
